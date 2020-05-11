@@ -1,38 +1,15 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Vue Projesi</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <button v-on:click="changeClass" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor02">
+    <div v-bind:class="mobileClass+'collapse navbar-collapse'" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-            <router-link
-                to="/"
-                tag="li">
+            <router-link v-bind:to="item.url" v-for="item in routerType.list" v-bind:tag="routerType.tag">
                 <a class="nav-link" href="javascript:;">
-                    Ana Sayfa
-                </a>
-            </router-link>
-            <router-link
-                to="/user-add"
-                tag="li">
-                <a class="nav-link" href="javascript:;">
-                    Üye Ekle
-                </a>
-            </router-link>
-            <router-link
-                to="/about"
-                tag="li">
-                <a class="nav-link" href="javascript:;">
-                    Hakkımda
-                </a>
-            </router-link>
-            <router-link
-                to="/contact"
-                tag="li">
-                <a class="nav-link" href="javascript:;">
-                    İletişim
+                    {{item.text}}
                 </a>
             </router-link>
         </ul>
@@ -41,5 +18,36 @@
 </template>
 <script>
 export default {
+    data(){
+        return{
+            mobileClass: '',
+            routerType: {
+                tag: 'li',
+                list: [
+                    {
+                        url: '/',
+                        text: 'Ana Sayfa',
+                    },
+                    {
+                        url: '/about',
+                        text: 'Hakkımda',
+                    },
+                    {
+                        url: '/user-add',
+                        text: 'Üye Ekle',
+                    },
+                    {
+                        url: '/Contact',
+                        text: 'İletişim',
+                    },
+                ],
+            },
+        }
+    },
+    methods: {
+        changeClass(){
+            this.mobileClass = this.mobileClass == '' ? 'show' : '';
+        },
+    }
 }
 </script>

@@ -59,8 +59,8 @@ export default {
                     userName: this.email,
                     userPass: this.pass,
                 })
-                .then(function (response) {
-                    console.log(response);
+                .then(response => {
+                    this.getUser();
                 })
                 .catch(function (error) {
                     console.log(error);
