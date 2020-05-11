@@ -40,7 +40,6 @@
 </template>
 
 <script>
-
 import axios from "axios";
 
 export default {
@@ -55,7 +54,7 @@ export default {
     methods: {
         addUser(){
             if(this.email != null && this.pass != null){
-                axios.post('https://vue-user-add.firebaseio.com/users.json', {
+                axios.post('users.json', {
                     userName: this.email,
                     userPass: this.pass,
                 })
