@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -27,9 +28,51 @@ export const store = new Vuex.Store(
                     },
                 ],
             },
+            userRequest: false,
+            userData: [
+            ],
         },
-        getters:{
-
+        mutations: {
+            setUser(state, value){
+                axios.post('users.json', {
+                    userName: value.email,
+                    userPass: value.pass,
+                })
+                .then(response => {
+                    alert(`${value.email} ve ${value.pass} başarıyla eklendi.`)
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
+            },
+            getUser(state,value){
+                
+                axios.get('users.json')
+                .then(response => {
+                    this.state.userData = [];
+                    this.state.userRequest = true;
+                    let data = response.data;
+                    for(let key in data){
+                        this.state.userData.push(
+                            {
+                                key: key,
+                                data: data[key],
+                            },
+                        );
+                    };
+                })
+                .catch(function (error) {
+                alert(error);
+                });
+            },
+        },
+        actions: {
+            setUser({commit}, value){
+                commit("setUser", value);
+            },
+            getUser({commit}, value){
+                commit("getUser", value);
+            },
         },
     }
 );

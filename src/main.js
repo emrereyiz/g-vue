@@ -13,7 +13,7 @@ const router = new VueRouter({
 
 new Vue({
   el: '#app',
-  router: router,
+  router,
   store,
   render: h => h(App)
 })
