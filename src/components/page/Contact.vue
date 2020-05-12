@@ -1,5 +1,7 @@
 <template>
     <div>
+        <input v-model="test" v-bind:class="{'test': $v.test.required}" type="text" >
+        {{$v.test.required}}
         <div class="row">
             <div v-bind:class="typeClass(form.tag) + ' form-group'" v-for="form in formList">
                 <label class="col-form-label col-form-label-lg" v-bind:for="form.name">
@@ -16,6 +18,8 @@
 
 <script>
 import axios from "axios";
+
+import {required} from "vuelidate/lib/validators"
 
     export default {
         data(){
@@ -54,6 +58,12 @@ import axios from "axios";
                     phone:null,
                     message:null,
                 },
+                test: null,
+            }
+        },
+        validations: {
+            test:{
+                required,
             }
         },
         methods:{
