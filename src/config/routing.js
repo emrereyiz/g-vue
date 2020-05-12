@@ -5,6 +5,7 @@ import Home from "../components/page/Home";
 import About from "../components/page/About";
 import Error from "../components/page/error_404";
 import UserAdd from "../components/page/UserAdd";
+import UserView from "../components/page/UserView";
 import Contact from "../components/page/Contact";
 export const routes = [
     {
@@ -21,6 +22,11 @@ export const routes = [
         path: '/user-add',
         component: UserAdd,
         name:'uye-ekle',
+    },
+    {
+        path: '/user-view/:id',
+        component: UserView,
+        name:'uye-goruntule',
     },
     {
         path: '/contact',

@@ -45,8 +45,28 @@ export const store = new Vuex.Store(
                     alert(error);
                 });
             },
+            updateUser(state, value){
+               axios.patch('users/'+value.key+'.json', {
+                   userName: value.name,
+                   userPass: value.pass,
+               })
+               .then(response => {
+                   alert(`${value.name} ve ${value.pass} olarak güncellendi.`)
+               })
+               .catch(function (error) {
+                   alert(error);
+               });
+            },
+            deleteUser(state, value){
+               axios.delete('users/'+value.key+'.json')
+               .then(response => {
+                   alert(`Üye silindi.`)
+               })
+               .catch(function (error) {
+                   alert(error);
+               });
+            },
             getUser(state,value){
-                
                 axios.get('users.json')
                 .then(response => {
                     this.state.userData = [];
@@ -69,6 +89,12 @@ export const store = new Vuex.Store(
         actions: {
             setUser({commit}, value){
                 commit("setUser", value);
+            },
+            updateUser({commit}, value){
+                commit("updateUser", value);
+            },
+            deleteUser({commit}, value){
+                commit("deleteUser", value);
             },
             getUser({commit}, value){
                 commit("getUser", value);

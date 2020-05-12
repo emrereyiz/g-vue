@@ -12,9 +12,7 @@
           enter-to-class=" animated shake"
           mode="out-in"
         >
-          <keep-alive>
             <router-view></router-view>
-          </keep-alive>
         </transition>
       </section>
       

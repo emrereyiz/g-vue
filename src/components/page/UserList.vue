@@ -6,12 +6,18 @@
             <hr>
             <strong>Parola</strong>
             <span class="text-success">{{user.data.userPass}}</span>
+            <hr>
+            <router-link
+                tag="a"
+                v-bind:to="{path: '/user-view/'+user.key}"
+                class="col-12 btn btn-info"
+            >
+                Üye Detayına Git
+            </router-link>
         </li>
     </div>
 </template>
 <script>
 export default {
-    mounted(){
-    }
 }
 </script>

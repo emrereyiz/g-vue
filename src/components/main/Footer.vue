@@ -1,6 +1,6 @@
 <template>
     <footer class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <p>Bu proje <span>Vue</span> ile yapılmıştır. Yapılırken kullanılan teknolojiler sırasıyla: <span>Vuex</span>, <span>Axios</span>, <span>Vue Router</span>.</p>
+        <p>Bu proje <span>Vue</span> ile yapılmıştır. Yapılırken kullanılan teknolojiler sırasıyla: <span>Vuex</span>, <span>Axios</span>, <span>Vue Router</span>, <span>Vuelidate</span>.</p>
     </footer>
 </template>
 <script>

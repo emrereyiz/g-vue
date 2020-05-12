@@ -6,19 +6,16 @@
                     <fieldset>
                         <div class="form-group">
                             <label for="exampleInputEmail1">E-posta</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-posta gir." v-model="userObj.email">
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-posta gir." v-model="userObj.email">
                             <small id="emailHelp" class="form-text text-muted">E-postanı kimseyle paylaşmayacağız.</small>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Parola</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Parola gir." v-model="userObj.pass">
+                            <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Parola gir." v-model="userObj.pass">
                         </div>
                         <div class="row">
                             <div class="col-4">
                                 <button type="button" class="btn btn-primary" v-on:click="addUser">Üye Ekle</button>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn btn-info" v-on:click="addUser">Üye Güncelle</button>
                             </div>
                             <div class="col-4">
                                 <button type="button" class="btn btn-success" v-on:click="getUser">Üyeleri Göster</button>
@@ -71,6 +68,9 @@ export default {
             this.$store.dispatch('getUser', this.userObj);
         },
     },
+    destroyed(){
+        this.$store.state.userRequest = false;
+    }
 }
 </script>
 
