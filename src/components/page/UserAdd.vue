@@ -22,7 +22,7 @@
                             </div>
                             <div class="col-4">
                                 <button type="button" class="btn btn-success" v-on:click="getUser">Üyeleri Göster</button>
-                            </div>
+                            </div> 
                         </div>
                     </fieldset>
                 </form>
