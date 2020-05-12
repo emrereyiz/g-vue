@@ -18,13 +18,17 @@ export const store = new Vuex.Store(
                         url: '/about',
                         text: 'Hakkımda',
                     },
-                    {
+                    {   
                         url: '/user-add',
                         text: 'Üye Ekle',
                     },
                     {
                         url: '/Contact',
                         text: 'İletişim',
+                    },
+                    {
+                        url: '/Marvel',
+                        text: 'Marvel',
                     },
                 ],
             },

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="content">
         Ana Sayfa
     </div>
 </template>
@@ -8,3 +8,5 @@
 export default {
 }
 </script>
+<style lang="scss">
+</style>

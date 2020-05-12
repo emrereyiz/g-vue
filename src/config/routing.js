@@ -7,6 +7,8 @@ import Error from "../components/page/error_404";
 import UserAdd from "../components/page/UserAdd";
 import UserView from "../components/page/UserView";
 import Contact from "../components/page/Contact";
+import Marvel from "../components/page/Marvel";
+
 export const routes = [
     {
         path: '/',
@@ -32,6 +34,11 @@ export const routes = [
         path: '/contact',
         component: Contact,
         name:'iletisim',
+    },
+    {
+        path: '/marvel',
+        component: Marvel,
+        name:'marvel',
     },
     {
         path: '*',
