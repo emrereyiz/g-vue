@@ -1,17 +1,31 @@
 <template>
     <div>
-        <input v-model="test" v-bind:class="{'test': $v.test.required}" type="text" >
-        {{$v.test.required}}
         <div class="row">
             <div v-bind:class="typeClass(form.tag) + ' form-group'" v-for="form in formList">
                 <label class="col-form-label col-form-label-lg" v-bind:for="form.name">
                     {{form.label}}
                 </label>
-                <input v-model="formLog[form.name]" v-if="form.tag == 'text'" v-bind:name="form.name" class="form-control form-control-lg" v-bind:type="form.tag">
-                <textarea v-model="formLog[form.name]" v-if="form.tag == 'textarea'" v-bind:name="form.name" class="form-control form-control-lg" v-bind:type="form.tag">
+                <input
+                v-bind:class="[
+                {'has-error':$v.formLog[form.name].$model != null},
+                {'has-success':!$v.formLog[form.name].$invalid}]"
+                v-model="formLog[form.name]"
+                v-if="form.tag == 'text'"
+                v-bind:name="form.name"
+                class="form-control form-control-lg"
+                v-bind:type="form.tag">
+
+                <textarea
+                v-model="formLog[form.name]"
+                v-if="form.tag == 'textarea'"
+                v-bind:name="form.name"
+                class="form-control form-control-lg"
+                v-bind:type="form.tag">
                 </textarea>
             </div>
-            <button v-on:click="sendMessage" type="button" class="btn btn-primary btn-lg btn-block">Gönder</button>
+            <b-button v-on:click="sendMessage()"
+            v-b-tooltip.hover v-bind:title="tooltipMessage"
+            v-bind:class="{'c-disabled': $v.$invalid}"class="btn btn-primary btn-lg btn-block">Mesajı Gönder</b-button>
         </div>
     </div>
 </template>
@@ -19,7 +33,7 @@
 <script>
 import axios from "axios";
 
-import {required} from "vuelidate/lib/validators"
+import {required, minLength, email, alpha, numeric, maxLength} from "vuelidate/lib/validators"
 
     export default {
         data(){
@@ -58,12 +72,42 @@ import {required} from "vuelidate/lib/validators"
                     phone:null,
                     message:null,
                 },
-                test: null,
             }
         },
+        computed: {
+            tooltipMessage(){
+                return this.$v.$invalid ? 'Tüm formu doldurmalısın.' : ''
+            },
+        },
         validations: {
-            test:{
-                required,
+            formLog:{
+                name:{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(100),
+                },
+                surName:{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(100),
+                },
+                email:{
+                    required,
+                    minLength: minLength(3),
+                    email,
+                    maxLength: maxLength(100),
+                },
+                phone:{
+                    required,
+                    minLength: minLength(9),
+                    numeric,
+                    maxLength: maxLength(11),
+                },
+                message:{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(200),
+                },
             }
         },
         methods:{
@@ -75,19 +119,24 @@ import {required} from "vuelidate/lib/validators"
                 }
             },
             sendMessage(){
-                this.$store.state.contactForm = this.formLog;
-                axios.post("contact.json", {
-                    name: this.formLog.name,
-                    surName: this.formLog.surName,
-                    email: this.formLog.email,
-                    phone: this.formLog.phone,
-                    message: this.formLog.message,
-                    date: new Date(),
-                }).then(response =>{
-                    alert('Mesajın gönderildi.')
-                }).catch(response=>{
-                    alert('Hata var');
-                });
+                if(!this.$v.$invalid){
+                    this.$store.state.contactForm = this.formLog;
+                    axios.post("contact.json", {
+                        name: this.formLog.name,
+                        surName: this.formLog.surName,
+                        email: this.formLog.email,
+                        phone: this.formLog.phone,
+                        message: this.formLog.message,
+                        date: new Date(),
+                    }).then(response =>{
+                        alert('Mesajın başarıyla gönderildi.');
+                    }).catch(response=>{
+
+                    });
+                }else{
+                    return false;
+                    alert('Lütfen tüm formu doldurunuz.');
+                }
             },
         },
     }
@@ -95,5 +144,17 @@ import {required} from "vuelidate/lib/validators"
 <style lang="scss" scoped>
     .row{
         padding:40px 0;
+    }
+    input,textarea{
+        border-width: 2px;
+    }
+    .has-error{
+        border-color:red;
+    }
+    .has-success{
+        border-color:green;
+    }
+    .c-disabled{
+        opacity: 0.3;
     }
 </style>
